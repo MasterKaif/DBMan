@@ -6,6 +6,7 @@
   "scripts": {
     "create-migration": "node create-migration/index.js",
     "migration": "node run-migration/runMigration.js",
+    "migration-down": "node run-migration/downMigration.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
