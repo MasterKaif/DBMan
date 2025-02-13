@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kaif.master02@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^16.4.7",
     "mysql2": "^3.12.0"
