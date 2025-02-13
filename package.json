@@ -1,0 +1,17 @@
+{
+  "name": "dbman",
+  "version": "1.0.0",
+  "description": "Maintain you db History and Migrations without ORM overheads",
+  "main": "index.js",
+  "scripts": {
+    "create-migration": "node create-migration/index.js",
+    "migration": "node run-migration/runMigration.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mysql2": "^3.12.0"
+  }
+}
