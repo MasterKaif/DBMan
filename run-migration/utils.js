@@ -20,7 +20,7 @@ exports.getExistingMigration = async() => {
       `;
 
       try {
-        await getQuery(createTableQuery);
+        await query(createTableQuery);
         console.log("Migrations table created successfully.");
         return []; // Return an empty array since no migrations exist
       } catch (createError) {

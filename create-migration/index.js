@@ -8,7 +8,11 @@ const args = process.argv.slice(2).map((arg) => `${arg}`).join(" ");
 // Path to the actual script
 
 try {
-  createMigration(args)
+  if(args.length) {
+    createMigration(args)
+  }else {
+    createMigration()
+  }
 } catch (error) {
   console.error("Error executing the migration script:", error.message);
 }
