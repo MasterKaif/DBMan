@@ -17,7 +17,7 @@ async function runMigration() {
   // Read the list of files in the migrations folder
   try {
     const files = fs.readdirSync(migrationsFolder).sort();
-
+    query("START TRANSACTION")
     if (files.length === 0) {
       console.log("No files found in the migrations folder.");
       process.exit(1);
@@ -54,6 +54,7 @@ async function runMigration() {
             console.log(`Successfully executed the migration: ${missingFile}`);
           } else {
             console.error(`The file ${missingFile} does not export an 'up' function.`);
+            throw new Error(`The file ${missingFile} does not export an 'up' function.`)
           }
         } catch (err) {
           console.error(`Error processing migration file ${missingFile}:`, err.message);
@@ -61,12 +62,14 @@ async function runMigration() {
         }
       }
       await updateMigrations(newMigrations);
-      process.exit(0);
+      
     } else {
       console.log("All migration files are present in the database.");
-      process.exit(0);
     }
+    query("COMMIT")
+    process.exit(0);
   } catch (err) {
+    query("ROLLBACK")
     console.error("Error reading the migrations folder:", err.message);
     process.exit(1);
   }

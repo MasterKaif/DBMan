@@ -11,6 +11,7 @@ async function downMigration(downBy = 1) {
   // Fetch the list of migrations to downgrade
   const getQuery = `SELECT id, name, created_at FROM migrations ORDER BY id LIMIT ${downBy}`;
   try {
+    query("START TRANSACTION")
     const migrations = await query(getQuery);
     const migrationNames = migrations.map((migration) => migration.name);
 
@@ -34,6 +35,7 @@ async function downMigration(downBy = 1) {
             console.log(`Successfully removed the migration: ${name}`);
           } else {
             console.error(`The file ${name} does not export a 'down' function.`);
+            throw new Error(`The file ${name} does not export a 'down' function.`)
           }
         } catch (err) {
           console.error(`Error processing migration file ${name}:`, err.message);
@@ -41,12 +43,13 @@ async function downMigration(downBy = 1) {
         }
       }
       await removeMigration(removedMigrations);
-      process.exit(0);
     } else {
       console.log("No migrations found to downgrade.");
-      process.exit(1);
     }
+    query("COMMIT")
+    process.exit(0);
   } catch (error) {
+    query("ROLLBACK")
     console.error("Error fetching migrations from the database:", error.message);
     process.exit(1);
   }
