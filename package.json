@@ -1,6 +1,7 @@
 {
   "name": "schemsync",
   "version": "1.0.0",
+  "type": "module",
   "description": "Maintain your database schema history and migrations without ORM overhead",
   "main": "index.js",
   "bin": {

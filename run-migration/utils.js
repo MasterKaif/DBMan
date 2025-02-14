@@ -1,12 +1,12 @@
-const { query } = require("../dbSetup")
-const dotenv = require("dotenv")
+import { query, getConnection } from"../dbSetup.js"
+import dotenv from "dotenv"
 dotenv.config();
 
-exports.getExistingMigration = async() => {
+export async function getExistingMigration() {
   const getQuery = `SELECT name FROM migrations order by id`
-
+  const connection = await getConnection();
   try {
-    const data = await query(getQuery)
+    const data = await connection.query(getQuery)
     return data
   } catch(error) {
     if (error.code === 'ER_NO_SUCH_TABLE') {
@@ -20,7 +20,7 @@ exports.getExistingMigration = async() => {
       `;
 
       try {
-        await query(createTableQuery);
+        await connection.query(createTableQuery);
         console.log("Migrations table created successfully.");
         return []; // Return an empty array since no migrations exist
       } catch (createError) {
@@ -34,8 +34,9 @@ exports.getExistingMigration = async() => {
   }
 }
 
-exports.updateMigrations = async(migrations) => {
+export async function updateMigrations(migrations) {
   try {
+    const connection = await getConnection();
     if (migrations.length === 0) {
       console.log("No migrations to update.");
       return;
@@ -68,7 +69,7 @@ exports.updateMigrations = async(migrations) => {
     `;
 
     // Execute the query
-    await query(insertQuery);
+    await connection.query(insertQuery);
     console.log("Migrations updated successfully.");
   } catch (error) {
     console.error("Error updating migrations table:", error.message);
@@ -76,7 +77,7 @@ exports.updateMigrations = async(migrations) => {
   }
 }
 
-exports.removeMigration = async (migrations) => {
+export async function removeMigration(migrations) {
   if (migrations.length === 0) {
     console.log("No migrations to remove.");
     return;
@@ -89,7 +90,8 @@ exports.removeMigration = async (migrations) => {
   const deleteQuery = `DELETE FROM migrations WHERE id IN (${values})`;
 
   try {
-    await query(deleteQuery);
+    const connection = await getConnection();
+    await connection.query(deleteQuery);
     console.log(`Successfully removed migrations: ${migrations.join(", ")}`);
   } catch (error) {
     console.error("Error updating migrations table:", error.message);

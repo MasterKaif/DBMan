@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
-const { query } = require("../dbSetup");
-const { removeMigration } = require("./utils");
+import fs from "fs"
+import path from "path";
+import { query, getConnection } from "../dbSetup.js";
+import { removeMigration } from "./utils.js";
+import { pathToFileURL } from "url";
 
 // Always resolve migrations folder from the project root
 const migrationsFolder = path.resolve(process.cwd(), "migrations");
@@ -10,9 +11,10 @@ const migrationsFolder = path.resolve(process.cwd(), "migrations");
 async function downMigration(downBy = 1) {
   // Fetch the list of migrations to downgrade
   const getQuery = `SELECT id, name, created_at FROM migrations ORDER BY id LIMIT ${downBy}`;
+  const connection = await  getConnection();
   try {
-    query("START TRANSACTION")
-    const migrations = await query(getQuery);
+    await connection.beginTransaction();
+    const [migrations] = await connection.query(getQuery);
     const migrationNames = migrations.map((migration) => migration.name);
 
     if (migrationNames.length > 0) {
@@ -24,13 +26,13 @@ async function downMigration(downBy = 1) {
         const migrationPath = path.join(migrationsFolder, name + ".js");
         try {
           // Dynamically import the migration file
-          const migration = require(migrationPath);
+          const migration = await import(pathToFileURL(migrationPath).href);
 
           if (typeof migration.down === "function") {
             const sqlQuery = migration.down(); // Get the SQL query from the `down` function
 
             // Execute the SQL query
-            await query(sqlQuery);
+            await connection.query(sqlQuery);
             removedMigrations.push(name.split("_")[0]);
             console.log(`Successfully removed the migration: ${name}`);
           } else {
@@ -46,10 +48,10 @@ async function downMigration(downBy = 1) {
     } else {
       console.log("No migrations found to downgrade.");
     }
-    query("COMMIT")
+    await connection.commit();
     process.exit(0);
   } catch (error) {
-    query("ROLLBACK")
+    await connection.rollback();
     console.error("Error fetching migrations from the database:", error.message);
     process.exit(1);
   }

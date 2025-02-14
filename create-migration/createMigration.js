@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path")
+import fs from "fs";
+import path from "path"
 
 
 function createMigrationFile(fileName = "migration_default") {
@@ -16,18 +16,14 @@ function createMigrationFile(fileName = "migration_default") {
     fs.mkdirSync(migrationsFolder, { recursive: true });
   }
   const fileContent = `
-function up() {
+export function up() {
   return('')
 }
 
-function down() {
+export function down() {
   return ('')
 }
-
-module.exports = { 
-  up,
-  down
-}  `
+`
   const filePath = path.join(migrationsFolder, filename);
   // Create the file
   fs.writeFileSync(filePath, fileContent, (err) => {
@@ -41,4 +37,4 @@ module.exports = {
 
 }
 
-module.exports = createMigrationFile;
+export default createMigrationFile
