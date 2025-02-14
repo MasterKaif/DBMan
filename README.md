@@ -1,8 +1,8 @@
-# **schemsync**
+# **schemasync**
 
 **Maintain your database schema history and migrations without ORM overhead.**
 
-`schemsync` is a lightweight command-line tool for managing database migrations and schema versioning. It focuses on simplicity and avoids the complexities of ORMs, making it perfect for developers who prefer direct control over their SQL migrations.
+`schemasync` is a lightweight command-line tool for managing database migrations and schema versioning. It focuses on simplicity and avoids the complexities of ORMs, making it perfect for developers who prefer direct control over their SQL migrations.
 
 ---
 
@@ -17,24 +17,24 @@
 
 ## **Installation**
 
-Install `schemsync` globally via npm:
+Install `schemasync` globally via npm:
 
 ```bash
-npm install -g schemsync
+npm install -g schemasync
 
 
-# schemsync Usage Guide
+# schemasync Usage Guide
 
 ## 1. Create a Migration File
 Run the following command to generate a new migration file:
 
 ```bash
-schemsync-create <migration_name>
+schemasync-create <migration_name>
 ```
 
 ### Example:
 ```bash
-schemsync-create add_users_table
+schemasync-create add_users_table
 ```
 **Output:** A new file is created in the `migrations/` folder with the format: `YYYYMMDD_HHMMSS_add_users_table.js`.
 
@@ -44,7 +44,7 @@ schemsync-create add_users_table
 Execute all pending migrations to apply schema changes:
 
 ```bash
-schemsync-up
+schemasync-up
 ```
 **Note:** The tool applies migration files in chronological order.
 
@@ -54,13 +54,13 @@ schemsync-up
 Revert the most recently applied migration:
 
 ```bash
-schemsync-down
+schemasync-down
 ```
 
 ---
 
 ## Configuration
-`schemsync` uses environment variables for database connection configuration. Add a `.env` file in your project root with the following content:
+`schemasync` uses environment variables for database connection configuration. Add a `.env` file in your project root with the following content:
 
 ```env
 DB_HOST=localhost
@@ -73,7 +73,7 @@ DB_NAME=my_database
 ---
 
 ## File Structure
-A typical project using `schemsync` will have the following structure:
+A typical project using `schemasync` will have the following structure:
 
 ```bash
 project/

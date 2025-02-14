@@ -1,13 +1,13 @@
 {
-  "name": "schemsync",
+  "name": "schemasync",
   "version": "1.0.0",
   "type": "module",
   "description": "Maintain your database schema history and migrations without ORM overhead",
   "main": "index.js",
   "bin": {
-    "schemsync-create": "./create-migration/index.js",
-    "schemsync-up": "./run-migration/runMigration.js",
-    "schemsync-down": "./run-migration/downMigration.js"
+    "schemasync-create": "./create-migration/index.js",
+    "schemasync-up": "./run-migration/runMigration.js",
+    "schemasync-down": "./run-migration/downMigration.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
