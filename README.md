@@ -1,8 +1,8 @@
-# **dbman**
+# **schemsync**
 
 **Maintain your database schema history and migrations without ORM overhead.**
 
-`dbman` is a lightweight command-line tool for managing database migrations and schema versioning. It focuses on simplicity and avoids the complexities of ORMs, making it perfect for developers who prefer direct control over their SQL migrations.
+`schemsync` is a lightweight command-line tool for managing database migrations and schema versioning. It focuses on simplicity and avoids the complexities of ORMs, making it perfect for developers who prefer direct control over their SQL migrations.
 
 ---
 
@@ -17,24 +17,24 @@
 
 ## **Installation**
 
-Install `dbman` globally via npm:
+Install `schemsync` globally via npm:
 
 ```bash
-npm install -g dbman
+npm install -g schemsync
 
 
-# dbman Usage Guide
+# schemsync Usage Guide
 
 ## 1. Create a Migration File
 Run the following command to generate a new migration file:
 
 ```bash
-dbman-create <migration_name>
+schemsync-create <migration_name>
 ```
 
 ### Example:
 ```bash
-dbman-create add_users_table
+schemsync-create add_users_table
 ```
 **Output:** A new file is created in the `migrations/` folder with the format: `YYYYMMDD_HHMMSS_add_users_table.js`.
 
@@ -44,7 +44,7 @@ dbman-create add_users_table
 Execute all pending migrations to apply schema changes:
 
 ```bash
-dbman-up
+schemsync-up
 ```
 **Note:** The tool applies migration files in chronological order.
 
@@ -54,13 +54,13 @@ dbman-up
 Revert the most recently applied migration:
 
 ```bash
-dbman-down
+schemsync-down
 ```
 
 ---
 
 ## Configuration
-`dbman` uses environment variables for database connection configuration. Add a `.env` file in your project root with the following content:
+`schemsync` uses environment variables for database connection configuration. Add a `.env` file in your project root with the following content:
 
 ```env
 DB_HOST=localhost
@@ -73,7 +73,7 @@ DB_NAME=my_database
 ---
 
 ## File Structure
-A typical project using `dbman` will have the following structure:
+A typical project using `schemsync` will have the following structure:
 
 ```bash
 project/

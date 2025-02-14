@@ -1,12 +1,12 @@
 {
-  "name": "dbman",
+  "name": "schemsync",
   "version": "1.0.0",
   "description": "Maintain your database schema history and migrations without ORM overhead",
   "main": "index.js",
   "bin": {
-    "dbman-create": "./create-migration/index.js",
-    "dbman-up": "./run-migration/runMigration.js",
-    "dbman-down": "./run-migration/downMigration.js"
+    "schemsync-create": "./create-migration/index.js",
+    "schemsync-up": "./run-migration/runMigration.js",
+    "schemsync-down": "./run-migration/downMigration.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
