@@ -119,4 +119,24 @@ This project is licensed under the MIT License.
 ---
 
 ## Author
-Created by **Kaif**.
+Created by **Kaif Master**.
+
+---
+
+## Contributing
+
+We welcome contributions! If you'd like to improve this package or fix any issues, feel free to fork the repository, make your changes, and submit a pull request.
+
+GitHub Repository: [https://github.com/MasterKaif/SchemaSync](https://github.com/MasterKaif/SchemaSync)
+
+
+### Steps to Contribute:
+1. Fork the repository.
+2. Create a new branch: `git checkout -b my-new-feature`.
+3. Make your changes and commit them: `git commit -m 'Add some feature'`.
+4. Push to the branch: `git push origin my-new-feature`.
+5. Submit a pull request.
+
+Thank you for your interest in contributing!
+
+
