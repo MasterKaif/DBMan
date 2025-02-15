@@ -1,6 +1,6 @@
 {
   "name": "schemasync",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "Maintain your database schema history and migrations without ORM overhead",
   "main": "index.js",
